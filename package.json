@@ -1,0 +1,26 @@
+{
+  "name": "a-atom-generator",
+  "version": "1.0.0",
+  "description": "Simple application that generates arbitrary fake values.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JEreth/A-atom-generator.git"
+  },
+  "keywords": [
+    "nodejs",
+    "analytics",
+    "generator",
+    "data",
+    "atoms"
+  ],
+  "author": "Julian Ereth",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JEreth/A-atom-generator/issues"
+  },
+  "homepage": "https://github.com/JEreth/A-atom-generator#readme"
+}
