@@ -24,17 +24,23 @@ Change the config.json.sample to config.json in the root directory and edit it t
 You can run the application easily with `node app.js` from the root directory (take care that a config.json file exists).
 As soon as the application is running you can see the logs in the console.
 
-**2.1. Access via http**
+**2.1 Run the application in a docker container**
+
+You can also simply run the application in a docker container with the image [julianereth/a-atom-generator](https://hub.docker.com/r/julianereth/a-atom-generator/). For this simply run
+
+`docker run -v /localpath/to/your-config.json:/usr/src/app/config.json -p 8000:8000 -d julianereth/a-atom-generator`
+
+**3.1. Access via http**
 
 You can easily access the data sources with your browser at *http://localhost:8000/##atomid##*. The ##atomid## part has to be replaced with the id you choose in your config.json e.g. http://localhost:8000/thermometer
 The response will be a json string similar to something like this:
 `{"name":"thermometer","temperature":22,"humidity":8}`
 
-**2.2. Write results in file**
+**3.2. Write results in file**
 
 In the file mode the results are written in the output directory e.g. *output/##atomid##.json*. Each atom gets its own file.
 
-**2.3 Fallback: console output**
+**3.3 Fallback: console output**
 
 If no or an unknown mode is defined the application just prints the output in the console.
 
