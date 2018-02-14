@@ -82,5 +82,6 @@ This project is part of an ongoing research at the University of Stuttgart and w
 If you have any questions don't hesitate to contact me or use the Github issue tracker.
 
 #### Related work
+- [Related Docker Image](https://hub.docker.com/r/julianereth/a-atom-generator/): Docker image to run this application
 - [fakesensor](https://github.com/JEreth/fakesensor): A similiar project implemented in Java
 - [Analytical Atoms Specs](https://github.com/JEreth/A-atom-meta-specs): A specification of the underlying idea of analytical atoms (in work)
