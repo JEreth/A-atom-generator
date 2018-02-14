@@ -32,7 +32,7 @@ You can also simply run the application in a docker container with the image [ju
 
 `docker run -v /localpath/to/your-config.json:/usr/src/app/config.json -p 8000:8000 -d julianereth/a-atom-generator`
 
-**3.1. Access data**
+**3. Access data**
 
 **3.1. Access via http**
 
