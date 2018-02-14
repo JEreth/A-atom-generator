@@ -21,6 +21,8 @@ Change the config.json.sample to config.json in the root directory and edit it t
 
 **2.  Run the application**
 
+**2.1 Run local**
+
 You can run the application easily with `node app.js` from the root directory (take care that a config.json file exists).
 As soon as the application is running you can see the logs in the console.
 
@@ -29,6 +31,8 @@ As soon as the application is running you can see the logs in the console.
 You can also simply run the application in a docker container with the image [julianereth/a-atom-generator](https://hub.docker.com/r/julianereth/a-atom-generator/). For this simply run
 
 `docker run -v /localpath/to/your-config.json:/usr/src/app/config.json -p 8000:8000 -d julianereth/a-atom-generator`
+
+**3.1. Access data**
 
 **3.1. Access via http**
 
