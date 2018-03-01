@@ -1,3 +1,17 @@
+<h1 align="center">
+  <img width="150" src="https://raw.githubusercontent.com/JEreth/A-atom-meta-specs/master/figures/logo.svg?sanitize=true" alt="" />
+</h1>
+
+<h3 align="center">Analytical Atom Data Generator</h3>
+
+<p align=center>
+<img src="https://img.shields.io/badge/status-Work%20in%20progress-yellow.svg?style=flat-square" alt="Work in progress" /> [![Build Status](https://travis-ci.org/JEreth/A-atom-generator.svg?branch=master)](https://travis-ci.org/JEreth/A-atom-generator)
+</p>
+
+<p align="center">
+**This document contains a specification for the concept of Analytical Atoms.**
+</p>
+
 # Analytical Atom Data Generator
 
 This is a very simple application that generates arbitrary fake values (e.g. coming from sensors) and serves them via json-files or http requests. I use it to simulate dezentralized analytics scenarios, but it can be adapted for any other purpose where fake data sources are needed.
