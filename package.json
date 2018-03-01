@@ -4,6 +4,7 @@
   "description": "Simple application that generates arbitrary fake values.",
   "main": "app.js",
   "scripts": {
+    "test": "mocha",
     "start": "node app.js"
   },
   "repository": {
@@ -25,5 +26,9 @@
   "homepage": "https://github.com/JEreth/A-atom-generator#readme",
   "dependencies": {
     "glob": "^7.1.2"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.1"
   }
 }
