@@ -1,4 +1,9 @@
 {
+    "settings": {
+        "mqtt": {
+          "broker": "mqtt://test.mosquitto.org"
+        }
+    },
     "atoms": [
         {
             "id": "thermometer",
@@ -36,6 +41,23 @@
                   "name": "speed",
                   "generator": "integerRange",
                   "parameters": [50,100]
+                }
+            ]
+        },
+        {
+            "id": "driller",
+            "publish_interval": 1000,
+            "mode": "mqtt",
+            "fields": [
+                {
+                  "name": "voltage",
+                  "generator": "floatRange",
+                  "parameters": [12.0,18.0]
+                },
+                {
+                  "name": "temperature",
+                  "generator": "integerRange",
+                  "parameters": [70,90]
                 }
             ]
         }

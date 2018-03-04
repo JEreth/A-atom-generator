@@ -7,7 +7,7 @@
 
 <img src="https://img.shields.io/badge/status-Work%20in%20progress-yellow.svg?style=flat-square" alt="Work in progress" /> [![Build Status](https://travis-ci.org/JEreth/A-atom-generator.svg?branch=master)](https://travis-ci.org/JEreth/A-atom-generator)
 
-**This is a very simple application that generates arbitrary fake values (e.g. coming from sensors) and serves them via json-files or http requests. I use it to simulate dezentralized analytics scenarios, but it can be adapted for any other purpose where fake data sources are needed.**
+**This is a very simple application that generates arbitrary fake values (e.g. coming from sensors) and serves them via json-files, mqtt or http requests. I use it to simulate dezentralized analytics scenarios, but it can be adapted for any other purpose where fake data sources are needed.**
 
 ### Implementation details:
 
@@ -51,7 +51,11 @@ The response will be a json string similar to something like this:
 
 In the file mode the results are written in the output directory e.g. *output/##atomid##.json*. Each atom gets its own file.
 
-**3.3 Fallback: console output**
+**3.3. Access via mqtt**
+
+Mqtt is a light-weight publish-subscirbe protocol often used in the Internet of Things. This application publishes the generated values and uses the the belonging atom id as topic name. To publish messages you need a mqtt broker. To test your scenario you can use a free test broker like test.mosquitto.org. However, you can define your own broker in the config.json.
+
+**3.4 Fallback: console output**
 
 If no or an unknown mode is defined the application just prints the output in the console.
 
@@ -60,19 +64,25 @@ If no or an unknown mode is defined the application just prints the output in th
 #### == General configuration ==
 The main configuration contains the following elements
 
-**1. id** sets the name of your atom.
+**1. settings** defines global settings.
 
-**2. publish_intervall** defines the interval in milliseconds (e.g. 5000 = 5s) how often a message of an atom will be published
+**1.1 mqtt > broker** a mqtt broker. Requiered  if you want to use mqtt in your scenario.
 
-**3. mode** sets the way you access the values. Current modes are file, console and http. If not set console is used as default.
+**2. Atoms** defines the actual components in your scenario (e.g. data sources like machines and the like).
 
-**4. fields:** a json array of the fields that the data source incorporates.
+**2.1. id** sets the name of your atom.
 
-**4.1 name:** name of a certain field in your atom.
+**2.2. publish_intervall** defines the interval in milliseconds (e.g. 5000 = 5s) how often a message of an atom will be published
 
-**4.2 generator:** used generator to fill the values of this field (details below).
+**2.3. mode** sets the way you access the values. Current modes are file, console and http. If not set console is used as default.
 
-**4.3 parameters:** used to configure the generator (details below).
+**2.4. fields:** a json array of the fields that the data source incorporates.
+
+**2.4.1 name:** name of a certain field in your atom (e.g. a particular sensor).
+
+**2.4.2 generator:** used generator to fill the values of this field (details below).
+
+**2.4.3 parameters:** used to configure the generator (details below).
 
 #### == Generators ==
 Currently the following value generators are implemented

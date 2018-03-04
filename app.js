@@ -3,8 +3,10 @@ var glob = require( 'glob' );
 var path = require( 'path' );
 var os = require("os");
 var http = require("http");
+var mqtt = require('mqtt');
 
 var httpActive = false;
+var mqttBroker = false;
 
 // load field generator
 var fields = [];
@@ -15,6 +17,15 @@ glob.sync( './fields/*.js' ).forEach( function( file ) {
 // read config file
 var config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 
+// settings
+if('settings' in config){
+  if('mqtt' in config.settings && 'broker' in config.settings.mqtt) {
+    console.log("connect "+config.settings.mqtt.broker);
+      mqttBroker = mqtt.connect(config.settings.mqtt.broker);
+  }
+}
+
+// parse atoms
 for (atom of config.atoms) {
   for (field of atom.fields) {
       field.generator = new fields[field.generator](...field.parameters);
@@ -65,16 +76,24 @@ function publishEntry(atom) {
             if(err) {
                 return console.log(err);
             }
-            console.log("New CSV value: "+atom.id);
+            console.log("New CSV value: "+atom.id+" "+JSON.stringify(output));
         });
         setTimeout( publishEntry, atom.publish_interval, atom);
         break;
     case 'http':
         httpActive=true;
         break;
+    case 'mqtt':
+        try {
+          mqttBroker.publish(atom.id, JSON.stringify(output));
+        } catch(er) {
+          console.log("Mqtt broker not ready or not configured");
+        }
+        console.log("New MQTT value: "+atom.id+" "+JSON.stringify(output));
+        setTimeout( publishEntry, atom.publish_interval, atom);
+        break;
     default:  // no specific mode defined, output in console
         console.log(output);
         setTimeout( publishEntry, atom.publish_interval, atom);
   }
-
 }
