@@ -4,7 +4,7 @@
           "broker": "mqtt://test.mosquitto.org"
         }
     },
-    "atoms": [
+    "sources": [
         {
             "id": "thermometer",
             "publish_interval": 1000,

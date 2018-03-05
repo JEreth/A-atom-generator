@@ -25,17 +25,17 @@ if('settings' in config){
   }
 }
 
-// parse atoms
-for (atom of config.atoms) {
-  for (field of atom.fields) {
+// parse sources
+for (source of config.sources) {
+  for (field of source.fields) {
       field.generator = new fields[field.generator](...field.parameters);
   }
-  publishEntry(atom);
+  publishEntry(source);
 }
 
 // init http server
 function handleRequest(request, response){
-  var item = config.atoms.find(function(v) {
+  var item = config.sources.find(function(v) {
     return (v.id==request.url.substring(1) && v.mode == 'http');
   })
 
@@ -50,7 +50,7 @@ function handleRequest(request, response){
       console.log("Http call: "+JSON.stringify(output));
   } else {
     response.writeHead(404);
-    response.end("Atom not found");
+    response.end("Source not found");
   }
 
 }
@@ -65,35 +65,35 @@ if (httpActive) {
 
 
 // publish entry depending on mode
-function publishEntry(atom) {
-  var output = {name: atom.id}
-  for (field of atom.fields) {
+function publishEntry(source) {
+  var output = {name: source.id}
+  for (field of source.fields) {
     output[field.name]=field.generator.value();
   }
-  switch(atom.mode) {
+  switch(source.mode) {
     case 'file':
-        fs.appendFile("output/"+atom.id+".json", JSON.stringify(output)+os.EOL, function(err) {
+        fs.appendFile("output/"+source.id+".json", JSON.stringify(output)+os.EOL, function(err) {
             if(err) {
                 return console.log(err);
             }
-            console.log("New CSV value: "+atom.id+" "+JSON.stringify(output));
+            console.log("New CSV value: "+source.id+" "+JSON.stringify(output));
         });
-        setTimeout( publishEntry, atom.publish_interval, atom);
+        setTimeout( publishEntry, source.publish_interval, source);
         break;
     case 'http':
         httpActive=true;
         break;
     case 'mqtt':
         try {
-          mqttBroker.publish(atom.id, JSON.stringify(output));
+          mqttBroker.publish(source.id, JSON.stringify(output));
         } catch(er) {
           console.log("Mqtt broker not ready or not configured");
         }
-        console.log("New MQTT value: "+atom.id+" "+JSON.stringify(output));
-        setTimeout( publishEntry, atom.publish_interval, atom);
+        console.log("New MQTT value: "+source.id+" "+JSON.stringify(output));
+        setTimeout( publishEntry, source.publish_interval, source);
         break;
     default:  // no specific mode defined, output in console
         console.log(output);
-        setTimeout( publishEntry, atom.publish_interval, atom);
+        setTimeout( publishEntry, source.publish_interval, source);
   }
 }

@@ -43,17 +43,17 @@ You can also simply run the application in a docker container with the image [ju
 
 **3.1. Access via http**
 
-You can easily access the data sources with your browser at *http://localhost:8000/##atomid##*. The ##atomid## part has to be replaced with the id you choose in your config.json e.g. http://localhost:8000/thermometer
+You can easily access the data sources with your browser at *http://localhost:8000/##sourceid##*. The ##sourceid## part has to be replaced with the id you choose in your config.json e.g. http://localhost:8000/thermometer
 The response will be a json string similar to something like this:
 `{"name":"thermometer","temperature":22,"humidity":8}`
 
 **3.2. Write results in file**
 
-In the file mode the results are written in the output directory e.g. *output/##atomid##.json*. Each atom gets its own file.
+In the file mode the results are written in the output directory e.g. *output/##sourceid##.json*. Each source gets its own file.
 
 **3.3. Access via mqtt**
 
-Mqtt is a light-weight publish-subscirbe protocol often used in the Internet of Things. This application publishes the generated values and uses the the belonging atom id as topic name. To publish messages you need a mqtt broker. To test your scenario you can use a free test broker like test.mosquitto.org. However, you can define your own broker in the config.json.
+Mqtt is a light-weight publish-subscirbe protocol often used in the Internet of Things. This application publishes the generated values and uses the the belonging source id as topic name. To publish messages you need a mqtt broker. To test your scenario you can use a free test broker like test.mosquitto.org. However, you can define your own broker in the config.json.
 
 **3.4 Fallback: console output**
 
@@ -68,9 +68,9 @@ The main configuration contains the following elements
 
 **1.1 mqtt > broker** a mqtt broker. Requiered  if you want to use mqtt in your scenario.
 
-**2. Atoms** defines the actual components in your scenario (e.g. data sources like machines and the like).
+**2. Sources** defines the actual components in your scenario (e.g. data sources like machines and the like).
 
-**2.1. id** sets the name of your atom.
+**2.1. id** sets the name of your source.
 
 **2.2. publish_intervall** defines the interval in milliseconds (e.g. 5000 = 5s) how often a message of an atom will be published
 
@@ -78,7 +78,7 @@ The main configuration contains the following elements
 
 **2.4. fields:** a json array of the fields that the data source incorporates.
 
-**2.4.1 name:** name of a certain field in your atom (e.g. a particular sensor).
+**2.4.1 name:** name of a certain field in your source (e.g. a particular sensor).
 
 **2.4.2 generator:** used generator to fill the values of this field (details below).
 
